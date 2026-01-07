@@ -8,6 +8,7 @@ import streamClient from "@/lib/stream";
 import {Chat } from "stream-chat-react"
 import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
+import "stream-chat-react/dist/css/v2/index.css"
 
 function layout ({children }: { children: React.ReactNode })  {
   return (
