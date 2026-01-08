@@ -48,37 +48,47 @@ function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col w-full flex-1">
+    <div className="flex flex-col w-full h-full flex-1">
       {channel ? (
         <Channel>
           <Window>
-            <div className="flex items-center justify-between">
-              {channel.data?.member_count === 1 ? (
-                <ChannelHeader title="Everyone else has left this chat" />
-              ) : (
-                <ChannelHeader />
-              )}
+            {/* Header */}
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-2 mb-2">
+              <div className="flex-1 w-full">
+                {channel.data?.member_count === 1 ? (
+                  <ChannelHeader title="Everyone else has left this chat" />
+                ) : (
+                  <ChannelHeader />
+                )}
+              </div>
 
-              <div className="flex items-center gap-2">
-                <Button variant="outline" onClick={handleCall}>
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="outline"
+                  onClick={handleCall}
+                  className="flex items-center gap-1 whitespace-nowrap"
+                >
                   <VideoIcon className="w-4 h-4" />
-                  Video Call
+                  <span className="hidden sm:inline">Video Call</span>
                 </Button>
 
                 <Button
                   variant="outline"
                   onClick={handleLeaveChat}
-                  className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
+                  className="flex items-center gap-1 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950 whitespace-nowrap"
                 >
                   <LogOutIcon className="w-4 h-4" />
-                  Leave Chat
+                  <span className="hidden sm:inline">Leave Chat</span>
                 </Button>
               </div>
             </div>
 
+            {/* Messages */}
             <MessageList />
 
-            <div className="sticky bottom-0 w-full">
+            {/* Message Input */}
+            <div className="sticky bottom-0 w-full mt-auto">
               <MessageInput />
             </div>
           </Window>
@@ -86,11 +96,11 @@ function Dashboard() {
           <Thread />
         </Channel>
       ) : (
-        <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex flex-col items-center justify-center h-full px-4 text-center">
           <h2 className="text-2xl font-semibold text-muted-foreground mb-4">
             No chat selected
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground max-w-xs">
             Select a chat from the sidebar or start a new conversation.
           </p>
         </div>

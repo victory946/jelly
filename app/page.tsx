@@ -1,158 +1,199 @@
-// Enable client-side rendering for this page
 "use client";
 
-// Import Header component
 import Header from "@/components/Header";
-// Import Button component
 import { Button } from "@/components/ui/button";
-// Import Clerk's SignedOut component for showing UI to unauthenticated users
 import { SignedOut, SignInButton } from "@clerk/nextjs";
-// Import Framer Motion for animations
 import { motion } from "framer-motion";
 
-/**
- * Home Page Component
- * Landing page for the Jelly application
- * Displays hero section, social proof, and feature highlights
- * Includes authentication CTAs for new users
- */
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-background transition-colors duration-300">
-      {/* Navigation header */}
+    <div className="relative min-h-screen flex flex-col bg-background overflow-hidden">
       <Header />
 
-      {/* Main content area */}
-      <main className="flex-1 flex flex-col items-center px-4 sm:px-6 lg:px-8 py-10 sm:py-14 gap-16">
-        
-        {/* Hero Section with animated entrance */}
-        <motion.div
-          // Fade in and slide up animation
-          initial={{ opacity: 0, y: 40 }}
+      {/* Floating Gradient Orbs */}
+      <motion.div
+        className="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-purple-400/30 rounded-full blur-3xl"
+        animate={{ y: [0, 40, 0], x: [0, 30, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-blue-400/30 rounded-full blur-3xl"
+        animate={{ y: [0, -40, 0], x: [0, -30, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <main className="relative flex-1 flex flex-col items-center px-4 py-14 gap-24 z-10">
+
+        {/* ================= HERO ================= */}
+        <motion.section
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="w-full max-w-5xl relative text-center px-2"
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="max-w-6xl text-center"
         >
-          {/* Responsive gradient glow background effect */}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-200/40 via-purple-200/40 to-pink-200/40 dark:from-blue-900/25 dark:via-purple-900/25 dark:to-pink-900/25 rounded-3xl blur-2xl sm:blur-3xl opacity-60" />
-
-          {/* Main headline with gradient text */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
-            {/* Blue to purple gradient text - first part */}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-300 dark:via-purple-300 dark:to-indigo-300">
-              From Small Talk to Real Bonds.
+          <motion.h1
+            initial={{ rotateX: -20 }}
+            animate={{ rotateX: 0 }}
+            transition={{ duration: 1 }}
+            className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight"
+          >
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600">
+              From Small Talk
             </span>
-            {/* Line break - visible only on desktop */}
-            <br className="hidden sm:block" />
-            {/* Purple to pink gradient text - second part */}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-300 dark:to-pink-300">
-              Jelly&apos;s Got You.
+            <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+              To Real Bonds.
             </span>
-          </h1>
+          </motion.h1>
 
-          {/* Subtitle with description */}
-          <p className="mt-6 text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Experience the next evolution of social interaction with Jelly — 
-            the AI companion that turns casual chats into genuine connections.
+          <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Jelly is an AI companion that understands your mood, adapts to your
+            personality, and turns conversations into meaningful connections.
           </p>
 
-          {/* Call-to-action button - only shown to unauthenticated users */}
           <SignedOut>
-            <div className="mt-8 flex justify-center">
-              {/* Sign in button that opens modal and redirects to dashboard */}
+            <div className="mt-10 flex justify-center">
               <SignInButton mode="modal">
-                <Button size="lg" className="text-base sm:text-lg px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition w-full sm:w-auto">
-                  Get Started
+                <Button
+                  size="lg"
+                  className="px-8 py-6 text-lg rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-105 transition-transform shadow-xl"
+                >
+                  Start Talking 🚀
                 </Button>
               </SignInButton>
             </div>
           </SignedOut>
-        </motion.div>
+        </motion.section>
 
-        {/* Social Proof Section - Statistics about the app */}
-        <motion.div
-          // Staggered animation - appears after hero
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="max-w-5xl w-full text-center"
-        >
-          {/* Subheading */}
-          <p className="text-xs sm:text-sm text-muted-foreground mb-4">
-            Trusted by thousands of users worldwide.
-          </p>
-
-          {/* Statistics grid - responsive layout */}
-          <div className="grid grid-cols-3 max-w-xs sm:max-w-none mx-auto gap-4 sm:gap-10">
-            {/* Map through statistics array */}
-            {[
-              { value: "50k+", label: "Active Users" },
-              { value: "1M+", label: "Messages Sent" },
-              { value: "99.9%", label: "Uptime" },
-            ].map((item, index) => (
-              <div key={index}>
-                {/* Statistic value */}
-                <div className="text-lg sm:text-2xl font-bold text-foreground drop-shadow-sm">{item.value}</div>
-                {/* Statistic label */}
-                <div className="text-[10px] sm:text-sm text-muted-foreground">{item.label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Features Section - Highlights unique features */}
+        {/* ================= LIVE AI DEMO ================= */}
         <motion.section
-          // Staggered animation - appears last
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
-          className="w-full max-w-6xl"
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl w-full mx-auto bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
         >
-          {/* Section title */}
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-4 drop-shadow-sm">
-            More Than Just Chat: Jelly&apos;s Unique Features
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
+            Say Anything. Jelly Understands.
           </h2>
-          {/* Section subtitle */}
-          <p className="text-sm sm:text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-10">
-            Discover intelligent, mood-aware conversations that evolve with you.
+          <p className="text-muted-foreground text-center mb-8">
+            A preview of emotionally-aware conversation.
           </p>
 
-          {/* Features grid - responsive cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Map through features array */}
+          <div className="space-y-5">
+            <div className="flex justify-end">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-3 rounded-2xl max-w-xs shadow-lg">
+                I don’t know why I feel stuck lately.
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" />
+              <span className="w-2 h-2 bg-purple-500 rounded-full animate-bounce delay-100" />
+              <span className="w-2 h-2 bg-purple-500 rounded-full animate-bounce delay-200" />
+              <span>Jelly is thinking…</span>
+            </div>
+
+            <div className="flex justify-start">
+              <div className="bg-gray-100 dark:bg-gray-800 px-5 py-3 rounded-2xl max-w-sm shadow-md">
+                Feeling stuck usually means something inside you wants to change.
+                Want to figure out what that is together?
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* ================= STATS ================= */}
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="grid grid-cols-3 gap-10 text-center"
+        >
+          {[
+            { value: "50k+", label: "Active Users" },
+            { value: "1M+", label: "Messages" },
+            { value: "99.9%", label: "Uptime" },
+          ].map((stat, i) => (
+            <motion.div key={i} whileHover={{ scale: 1.08 }} className="p-4">
+              <div className="text-3xl font-bold">{stat.value}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.section>
+
+        {/* ================= FEATURES ================= */}
+        <section className="max-w-6xl w-full">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            Why Jelly Feels Different
+          </h2>
+          <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
+            Not just chat — an evolving emotional intelligence.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-[1200px]">
             {[
               {
-                title: "Personalized Starters",
-                desc: "Ice-breakers tailored to your vibe and interests.",
+                title: "Smart Ice-Breakers",
+                desc: "Conversation starters crafted uniquely for you.",
               },
               {
-                title: "Mood-Based Interactions",
-                desc: "Jelly adapts to your emotional tone for natural chats.",
+                title: "Emotion-Aware AI",
+                desc: "Jelly senses tone and adapts in real-time.",
               },
               {
-                title: "Adaptive Learning",
-                desc: "The more you talk, the better Jelly understands you.",
+                title: "Memory That Matters",
+                desc: "Remembers context, preferences, and vibes.",
               },
-            ].map((card, index) => (
-              // Feature card with hover animation
+            ].map((feature, i) => (
               <motion.div
-                key={index}
-                // Scale up slightly on hover
-                whileHover={{ scale: 1.03 }}
-                className="p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-xl shadow-md hover:shadow-xl border border-black/5 dark:border-white/5 transition-all"
+                key={i}
+                whileHover={{ rotateY: 10, rotateX: -10, scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/10"
               >
-                {/* Card title */}
-                <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">
-                  {card.title}
-                </h3>
-                {/* Card description */}
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {card.desc}
-                </p>
+                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
-        </motion.section>
+        </section>
+
+        {/* ================= AI CAPABILITIES ================= */}
+        <section className="max-w-6xl w-full">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            What Jelly Actually Does
+          </h2>
+          <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
+            Not just replies — intelligent conversation behavior.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Mood Awareness",
+                desc: "Understands emotional tone and adjusts how it speaks.",
+              },
+              {
+                title: "Conversation Flow",
+                desc: "Knows when to listen, ask, or guide the discussion.",
+              },
+              {
+                title: "Meaningful Memory",
+                desc: "Remembers what matters — nothing more.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/10"
+              >
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );

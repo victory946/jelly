@@ -121,3 +121,14 @@
   }
 }
 
+[data-chat-bg="default"] {
+  --chat-bg: hsl(var(--background));
+}
+
+[data-chat-bg="dark"] {
+  --chat-bg: hsl(222 47% 11%);
+}
+
+[data-chat-bg="gradient"] {
+  --chat-bg: linear-gradient(135deg, #020617, #0f172a);
+}
